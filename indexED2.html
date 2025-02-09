@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GOLDEN MEMORIES</title>
+    <style type="text/css">
+      * { box-sizing: border-box; }
+
+      /* FlipBook */
+
+      body {
+        /* or any other parent wrapper */
+        margin: 0;
+        display: flex;
+        min-height: 100dvh;
+        perspective: 1000px;
+        font: 1em/1.1 "Poppins", sans-serif;
+        overflow: hidden;
+        color: hsl(180 68% 5%);
+        background: #fff0f5;
+      }
+
+      .book {
+        position: relative;
+        display: flex;
+        margin: auto;
+        width: 40cqmin;
+        /*1* let pointer event go trough pages of lower Z than .book */
+        pointer-events: none;
+        transform-style: preserve-3d;
+        transition: translate 1s;
+        translate: calc(min(var(--c), 1) * 50%) 0%;
+        /* Incline on the X axis for pages preview */
+        rotate: 1 0 0 30deg;
+      }
+
+      .page {
+        /* PS: Don't go below thickness 0.5 or the pages might transpare */
+        --thickness: 4;
+        flex: none;
+        display: flex;
+        width: 100%;
+        font-size: 2cqmin;
+        /*1* allow pointer events on pages */
+        pointer-events: all;
+        user-select: none;
+        transform-style: preserve-3d;
+        transform-origin: left center;
+        transition:
+          transform 1s,
+          rotate 1s ease-in calc((min(var(--i), var(--c)) - max(var(--i), var(--c))) * 50ms);
+        translate: calc(var(--i) * -100%) 0px 0px;
+        transform: translateZ( calc((var(--c) - var(--i) - 0.5) * calc(var(--thickness) * .23cqmin)));
+        rotate: 0 1 0 calc(clamp(0, var(--c) - var(--i), 1) * -180deg);
+      }
+
+      .front,
+      .back {
+        position: relative;
+        flex: none;
+        width: 100%;
+        backface-visibility: hidden;
+        overflow: hidden;
+        background-color: #fff;
+        /* Fix backface visibility Firefox: */
+        translate: 0px;
+      }
+
+      .back {
+        translate: -100% 0;
+        rotate: 0 1 0 180deg;
+      }
+
+
+      /* That's it. Your FlipBook customization styles: */
+
+      .book {
+        counter-reset: page -1;
+        & a {
+          color: inherit;
+        }
+      }
+
+      .page {
+        box-shadow: 0em .5em 1em -.2em #00000020;
+      }
+
+      .front,
+      .back {
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: space-between;
+        padding: 2em;
+        border: 1px solid #0002;
+        
+        &:has(img) {
+          padding: 0;
+        }
+        
+        & img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        &::after {
+          position: absolute;
+          bottom: 1em;
+          counter-increment: page;
+          content: counter(page) ".";
+          font-size: 0.8em;
+        }
+      }
+      .cover {
+        &::after {
+          content: "";
+        }
+      }
+      .front {
+        &::after {
+          right: 1em;
+        }
+        background: linear-gradient(to left, #f7f7f7 80%, #eee 100%);
+        border-radius: .1em .5em .5em .1em;
+      }
+      .back {
+        &::after {
+          left: 1em;
+        }
+        background-image: linear-gradient(to right, #f7f7f7 80%, #eee 100%);
+        border-radius: .5em .1em .1em .5em;
+      }
+
+      .cover {
+        background: radial-gradient(circle farthest-corner at 80% 20%, hsl(150 80% 20% / .3) 0%, hsl(170 60% 10% / .1) 100%),
+          hsl(231, 32%, 29%) url("https://picsum.photos/id/984/800/900") 50% / cover;
+        color: hsl(200 30% 98%);
+      }
+
+
+
+
+    </style>
+</head>
+<body>
+  <div class="book">
+    <div class="page">
+      <div class="front cover">
+        <h1>MEMORIES✨</h1>
+        <p>2024-25<br>First Edition</p>
+      </div>
+      <div class="back">
+        <h2>CONTENT</h2>
+        <p>1. Why Her?? <br>2. A Book<br>3. A Surprise Text<br>4. Why Not Pragati??<br>5. The Confession<br>6. Dumb Me!<br>7.<br>8.<br>9.<br>10.<br>11.<br>12.<br>13.<br>14.</p>
+      </div>
+    </div>
+
+
+    <div class="page">
+      <div class="front">
+        <h2>WHY ME??</h2>
+        <p>You have so many tiny, special things that make you you ....the little gestures, the way you laugh, the way you light up a room without even trying. But beyond all of that, you’re just an ordinary person, like any other cheerful, social, impatience, Holding Onto Grudges, and easygoing soul <br><br>
+
+        Loving someone for their beauty or perfection is easy.. But truly loving someone, their quirks, their</p>
+      </div>
+      <div class="back">
+        <p> everyday moments, their simplest self that’s something deeper... And with you, it’s effortless... Because even in your ordinariness, you’re the most extraordinary person to me. 🧡<br><br>
+
+        And maybe that’s what draws me to you the most... the way you’re both familiar and unpredictable, the way your presence feels effortless yet impossible to ignore.. There’s something about you, something in the way you move, the way you tease without meaning to, the way your lips curve when you’re amused... </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="front">
+        <p> It drives me crazy in the best way!!<br><br>
+
+        And the worst part? You don’t even have to try. You just exist.. completely yourself, completely unfiltered and it undoes me.... Every glance, every playful smirk, every time you lean in just a little too close without even realizing what you’re doing.. It’s maddening in the most addictive way </p>
+      </div>
+      <div class="back">
+        <p></p>
+      </div>
+    </div>
+
+<!-- CHP 2-->
+    <div class="page">
+      <div class="front">
+        <h2>A BOOK</h2>
+        <p>Can WE be US??<br><br>
+
+        I’ve tried to find the perfect words, but the truth is, there will never be enough words to express how much you mean to me-- <br><br>
+
+        You already know that I love you... how could you not? It’s in the way I look at you, in the way my voice softens when I say your name, and in the way I can’t help but smile every time your notification pops. </p>
+      </div>
+      <div class="back">
+        <p> But what you may not know is how much this love grows with every passing moment. Every time I see you, every time I hear you, every time you do that little thing that only you can do, my heart feels sad<br><br>
+
+        I crave you.... not just your presence, but everything that comes with it. I dream of the day I can wrap my arms around you and hold you so tightly that the world itself disappears. I crave to feel your hand in mine, to feel the warmth of your fingers tied with mine, as if our hands were made to fit together.</p>
+      </div>
+    </div>
+    
+    
+    <div class="page">
+      <div class="front">
+        <p> I crave to kiss you honey not for the physical sake, but to express my love to you in a way that words never could<br><br>
+
+        You are my dream girl, my everything. And with every passing day, my love for you becomes more than just a feeling... it’s a need, a part of me saying I just want you at all costs.. I don’t just want to be near you, I want to be with you.<br><br> I want to love you not for a moment, but for forever and ever...<br>I know this might sound dramatic, and maybe I’m being a little too</p>
+      </div>
+      <div class="back">
+        <p>vulnerable here, but I can’t keep this inside any longer. You are the first thing I think about when I wake up and the last thought on my mind before I fall asleep. You are my happiest daydream and my most beautiful reality<br><br>
+
+        Even if you tried, you couldn’t stop me from loving you. I don’t love you because I want something in return. I love you because you are you and everything I do not have..<br><br> 
+
+        But if there’s even the slightest chance that you feel something for me, I request you to take a chance on us. Let me show you what this</p>
+      </div>
+    </div>
+
+
+    <div class="page">
+      <div class="front">
+        <p>love could be. Let me hold your hand, kiss your lips, and be the one who makes you laugh when life gets hard. Let me love you in a way that you’ve never been loved before<br><br>
+        I promise you, with everything I am, that you will never regret being with me. Every moment we share will be filled with love, laughter, and memories that we’ll cherish forever. I’ll do everything in my power to make you feel loved every single day...
+        <br><br>I can’t promise life will always be perfect, but I promise you this: I’ll</p>
+      </div>
+      <div class="back">
+        <p>never give up on us. I’ll fight for our love and protect it with everything I have. You’re not just someone I want to be with today; you’re the one I want to be with forever (FOREVER)<br>
+                <br><br>
+You already have my heart, Shambhavi, now give me yours too...<br><br>Shlok <3</p></p>
+      </div>
+    </div>
+
+
+<!-- CHP 3-->
+    <div class="page">
+      <div class="front">
+        <h2>SURPRISE TEXT</h2>
+        <p>A surprise text by Shambhu...<br><br>
+        Mai itna honestly bolungi na sahi mee... literally tu itna sweet hai and fir itne pyaare gestures karta hai likee god you show so much care and love seriously Acha lagta hai... aisa hi raha toh I am pretty sure mujhe Haa bolne me bhi time nai lagega but fir just don't change after Haa.Ye sabse common hated thing hai girls me ki boys before you say is different and after you say yes</p>
+      </div>
+      <div class="back">
+        <p> is different. Like they do change maine khud dekha hai. I just want ki wapas woh naa ho. Boys ko ye samjh nai ata hai ki tum before relationship kaise chase karte ho hame wahi hame during relationship bhi chahiye because you know how much that means... special feelings hoti hai woh. Mostly ye sab samjh nai ata hai and also you are pretty new to relationship toh tuje I guess batana yehi sahi time rahega. Baki choti choti details deti rahungi 💓</p>
+      </div>
+    </div>
+
+<!-- CHP 4-->
+    <div class="page">
+      <div class="front">
+        <h2>WHY NOT PRAGATI??</h2>
+        <p>mera pehla pyaar was you not her isiliye tu<br><br>
+        maine and pragati ne mainly kabhi baat nahi ki hai to i just dont feel the same connection that i feel with you isiliye tu<br><br>
+        remember humne half 11th k bad baat karna almost bandh kar diya tha tab you were the one who talked she never did isiliye tu</p>
+      </div>
+      <div class="back">
+        <p>jab maine tere se first time baat ki thi tab maine tujhe boht annoy kiya tha but you never lost your temper but pragati se doubt pucha tab she lost her temper thoda sa so i think she is more quick tempered than you isiliye tu<br><br>mujhe tere as pass rehke zyada accha lagta hai than her isiliye tu<br><br>
+        mujhe aisa lagta hai ki you are one who has more empathy isiliye tu<br><br>
+        and jab tak tu hai mere pass tab tak mai kisi aur k bare me sochu hi kyu ilisiye tu bass tu just tu🧡🧡</p>
+      </div>
+    </div>
+
+
+<!-- CHP 5-->
+    <div class="page">
+      <div class="front">
+        <h2>THE CONFESSION</h2>
+        <p>Tere sath I can be who I am, I know tu mujhe judge nahi karegi and agar mai kuch bolu to bhi it's just going to be between us, tu vo sari choti choti cheez karti hai jo log friends k liye nahi karte<br><br>
+        tujhe pata nahi hoga but mujhe aisa abhi tak Charmi ne bhi nahi feel karvaya tha mai aise he thodi bolta hu ki you are a good person, there are just a very few people with whom you can feel like home,</p>
+      </div>
+      <div class="back">
+        <p>tu har baar persent hoti hai jab i need you, tu boht supportive hai, humble hai, trustable hai and appearance hi dekhni ho to fir you are not a model right but you are very beautiful and sexy as you are<br><br>
+        isse zyada to ab kya hi chiye ek ladki me..<br><br>
+        itna sab karegi mere liye naughty bitch fir tu he bata mai tere se pyar kaise na karu??<br><br>
+        I think mujhe apse pyaar ho raha hai Shambhavi</p>
+      </div>
+    </div>
+
+<!--LAST-->
+
+    <div class="page">
+      <div class="front">
+      </div>
+      <div class="back">
+        <h3>GOLDEN MOMENTS</h3>
+        <p>By: Shlok D.</p>
+      </div>
+    </div>
+
+
+
+    <div class="page">
+      <div class="front">
+        <img src="https://picsum.photos/id/1073/600/600" alt="Img 2">
+      </div>
+      <div class="back cover">
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <script type="text/javascript">
+    const flipBook = (elBook) => {
+      elBook.style.setProperty("--c", 0); // Set current page
+      elBook.querySelectorAll(".page").forEach((page, idx) => {
+        page.style.setProperty("--i", idx);
+        page.addEventListener("click", (evt) => {
+          if (evt.target.closest("a")) return;
+          const curr = evt.target.closest(".back") ? idx : idx + 1;
+          elBook.style.setProperty("--c", curr);
+        });
+      });
+    };
+
+    document.querySelectorAll(".book").forEach(flipBook);
+  </script>
+
+</body>
+</html>
+
+
